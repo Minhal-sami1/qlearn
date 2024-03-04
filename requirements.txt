@@ -1,8 +1,8 @@
+--upgrade pip
 Flask
 Flask_SQLAlchemy
 Flask_WTF
-pandas
+pandas==2.2.0
 Requests
 SQLAlchemy
 gunicorn
-server
