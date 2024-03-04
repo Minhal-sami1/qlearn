@@ -1,0 +1,46 @@
+{% extends 'top.html' %}
+
+{% block title %}Classes{% endblock %}
+
+{% block content %}
+<input style="margin: 20px; background: transparent; border: 2px solid #ccc;padding: 4px;border-radius: 5px;outline: 0;"
+  type="text" id="search" placeholder="Search..." autocomplete="off">
+
+
+<div class="card-body">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Teacher</th>
+        <th>Total Students</th>
+        <th>Type</th>
+        <th style="display: none;">Details</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for class in classes %}
+      <tr>
+        <td>{{class.name}}</td>
+        <td>{{teacher_obj.query.get_or_404(class.teacher_id).name}}</td>
+        <td>{{student_obj.query.filter_by(course_id=class.id).count()}}</td>
+        <td>{{class.course_type}}</td>
+        <td style="display: none;">{{class.details}}</td>
+        <td>
+          <a href="/view/{{class.id}}" class="btn btn-primary btn-sm">
+            <i class="fas fa-eye"></i>
+          </a>
+          <a href="/edit/{{class.id}}" class="btn btn-success btn-sm">
+            <i class="fas fa-edit"></i>
+          </a>
+          
+        </td>
+      </tr>
+      {% endfor %}
+      </tfoot>
+  </table>
+</div>
+</div>
+
+{% endblock %}

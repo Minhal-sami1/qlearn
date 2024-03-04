@@ -1,0 +1,233 @@
+{% extends 'top.html' %}
+
+
+{% block title %}
+Edit {% if table_index == 0 %}Teacher{% elif table_index == 1 %}Student{% else %}Class{% endif %}
+{% endblock %}
+
+{% block location %}
+{% if table_index == 0 %}
+<li class="breadcrumb-item"><a href="/teachers">Teachers</a></li>
+{% elif table_index == 1 %}
+<li class="breadcrumb-item"><a href="/students">Students</a></li>
+{% else %}
+<li class="breadcrumb-item"><a href="/classes">Classes</a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-dark">
+            <div class="card-header">
+              <h3 class="card-title">{% if table_index == 0 %}Teacher{% elif table_index == 1 %}Student{% else %}Class{% endif %} Details</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            {% if table_index == 2 %}
+            <form method="post" autocomplete="off">
+              <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Title</label>
+                  <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{table.name}}" required>
+                </div>
+                <div class="form-group">
+
+                    <label>Select Class Type</label>
+                    <select class="form-control select2 select2-danger" name="class-type" data-dropdown-css-class="select2-danger">
+                      <option selected="selected" value="{{table.course_type}}">{{table.course_type}}</option>
+                      {% for class in quran_courses_choices %}
+                      <option value="{{class}}">{{class}}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+
+                    <label>Select Teacher</label>
+                    <select class="form-control select2 select2-danger" name="teacher" data-dropdown-css-class="select2-danger">
+                      <option selected="selected" value="{{table.teacher_id}}">{{tobj.query.get_or_404(table.teacher_id).name}}</option>
+                      {% for teacher in teachers %}
+                      {% if teacher.id != table.teacher_id %}
+                      <option value="{{teacher.id}}">{{teacher.name}}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Details</label>
+                    <textarea class="form-control" name="details" style="height:100;min-height: 100;max-height: 150px;" placeholder="Enter details" required>{{table.details}}</textarea>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-dark">Update Class Details</button>
+              </div>
+            </form>
+            
+            {% elif table_index == 1 %}
+            <form method="post" autocomplete="off">
+              <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
+                <div class="card-body">
+                  {% if table.isFeePaid %}<span class="badge badge-success">[Fee Received]</span>{% else %}<span class="badge badge-danger">[Fee Unreceived]</span>{% endif %}
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{table.name}}"  required>
+                  </div>
+                  <div class="form-group">
+                      <label>Contact Number</label>
+                      <input type="text" class="form-control" name="contact" placeholder="Enter contact number" value="{{table.contact}}" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Contact Nickname</label>
+                    <input type="text" class="form-control" name="contact-nickname" placeholder="Enter contact nickname"
+                      value="{{table.contact_nickname}}" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Country</label>
+                      <select class="form-control select2 select2-danger" name="country" id="country" data-dropdown-css-class="select2-danger">
+                        <option selected="selected">{{table.country}}</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label>City</label>
+                      <input type="text" class="form-control" name="city" value="{{table.city}}" placeholder="Enter city name" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Address</label>
+                      <textarea class="form-control" name="address" style="height:100px;min-height: 100px;max-height: 150px;" placeholder="Enter address" required>{{table.address}}</textarea>
+                  </div>
+                  <div class="form-group">
+                      <label>Join Date</label>
+                      <input type="date" class="form-control" name="date-joined" placeholder="Enter date joined" value="{{table.join_date}}" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Birth Date</label>
+                      <input type="date" class="form-control" name="date-born" placeholder="Enter birth date" value="{{table.birth_date}}" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Class</label>
+                      <select class="form-control select2 select2-danger" name="course" data-dropdown-css-class="select2-danger">
+                        <option selected="selected" value="{{table.course_id}}">{{cobj.query.get_or_404(table.course_id).name}}</option>
+                        {% for class in cobj.query.all() %}
+                        {% if class.id != table.course_id  %}
+                        <option value="{{class.id}}">{{class.name}}</option>
+                        {% endif %}
+                        {% endfor %}
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Platform</label>
+                    <select class="form-control select2 select2-danger" name="platform" data-dropdown-css-class="select2-danger">
+                      <option selected="selected" value="{{table.platform}}">{{table.platform}}</option>
+                      {% for platform in platforms %}
+                      <option value="{{platform}}">{{platform}}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label>Learnable Language/s</label>
+                  <input class="form-control" name="languages" placeholder="Enter language/s they can learn in" value="{{table.languages}}" required>
+                </div>
+                  <div class="form-group">
+                      <label>Fee</label>
+                      <input type="number" class="form-control" name="fee" placeholder="Enter fee" min="0" value="{{table.fee}}" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Fee Currency</label>
+                    <select class="form-control" name="currency">
+                    {% for k,v in currency.items() %}
+                    {% if k == table.currency %}
+                    <option selected="selected" value="{{k}}">{{v}}</option>
+                    {% else %}
+                    <option value="{{k}}">{{v}}</option>
+                    {% endif %}
+                    {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                      <label>Payment Details</label>
+                      <textarea class="form-control" name="payment" style="height:100px;min-height: 100px;max-height: 150px;" placeholder="Enter payment details" required>{{table.payment_details}}</textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Timing Details</label>
+                    <textarea class="form-control" name="timing" style="height:100px;min-height: 100px;max-height: 150px;"
+                      placeholder="Enter timing details. e.g. 5:00 pm every thursday and friday" required>{{table.timing}}</textarea>
+                  </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-dark">Update Student Details</button>
+                  </div>
+              </form>
+              <script src="/static/script.js"></script>
+            {% else %}
+            <form method="post" autocomplete="off">
+              <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
+                <div class="card-body">
+                  {% if table.isSalaryPaid %}<span class="badge badge-success">[Salary Paid]</span>{% else %}<span class="badge badge-danger">[Salary Unpaid]</span>{% endif %}
+
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{table.name}}" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Contact Nickname</label>
+                    <input type="text" class="form-control" name="contact-nickname" placeholder="Enter contact nickname" value="{{table.contact_nickname}}" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Contact Number</label>
+                      <input type="text" class="form-control" name="contact" placeholder="Enter contact number" value="{{table.contact}}" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Country</label>
+                      <select class="form-control select2 select2-danger" name="country" id="country" data-dropdown-css-class="select2-danger">
+                        <option selected="selected">{{table.country}}</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label>City</label>
+                      <input type="text" class="form-control" name="city" value="{{table.city}}" placeholder="Enter city name" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Address</label>
+                      <textarea class="form-control" name="address" style="height:100px;min-height: 100px;max-height: 150px;" placeholder="Enter address" required>{{table.address}}</textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Teachable Language/s</label>
+                    <input class="form-control" name="languages" placeholder="Enter language/s they can teach in" value="{{table.languages}}" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Qualifications</label>
+                      <textarea class="form-control" name="qualifications" style="height:100px;min-height: 100px;max-height: 150px;" placeholder="Enter qualification" required>{{table.qualification}}</textarea>
+                  </div>
+                  <div class="form-group">
+                      <label>CNIC</label>
+                      <input type="text" class="form-control" id="cnic" name="cnic" maxlength="15" value="{{table.cnic_number}}" placeholder="Enter cnic" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Join Date</label>
+                      <input type="date" class="form-control" name="date-joined" value="{{table.join_date}}" placeholder="Enter date joined" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Salary</label>
+                      <input type="number" class="form-control" name="salary" value="{{table.salary}}" placeholder="Enter salary" min="0" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Payment Details</label>
+                      <textarea class="form-control" name="payment" style="height:100px;min-height: 100px;max-height: 150px;" placeholder="Enter payment details" required>{{table.account_of_payment}}</textarea>
+                  </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-dark">Update Teacher Details</button>
+                  </div>
+              </form>
+              <script src="/static/script.js"></script>
+              {% endif %}
+          </div>
+        </section>
+
+{% endblock %}

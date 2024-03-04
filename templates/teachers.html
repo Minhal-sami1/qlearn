@@ -1,0 +1,59 @@
+{% extends 'top.html' %}
+
+{% block title %}Teachers{% endblock %}
+
+
+{% block content %}
+<input style="margin: 20px; background: transparent; border: 2px solid #ccc;padding: 4px;border-radius: 5px;outline: 0;" type="text" id="search" placeholder="Search..." autocomplete="off">
+
+
+<div class="card-body">
+    <table id="example2" class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Join Date</th>
+        <th>Salary</th>
+        <th style="display: none;">Address</th>
+        <th style="display: none;">languages</th>
+        <th style="display: none;">Qualification</th>
+        <th style="display: none;">Payment Details</th>
+        <th style="display: none;">CNIC</th>
+        <th style="display: none;">Contact Nickname</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for teacher in teachers %}
+      <tr>
+        <td>{{teacher.name}}</td>
+        <td>{{teacher.contact}}</td>
+        <td>{{teacher.country}}</td>
+        <td>{{teacher.city}}</td>
+        <td>{{teacher.join_date}}</td>
+        <td>Rs. {{teacher.salary}} {% if teacher.isSalaryPaid %}<span class="badge badge-success">[Paid]</span>{% else %}<span class="badge badge-danger">[Unpaid]</span>{% endif %}</td>
+        <td style="display: none;">{{teacher.address}}</td>
+        <td style="display: none;">{{teacher.languages}}</td>
+        <td style="display: none;">{{teacher.qualification}}</td>
+        <td style="display: none;">{{teacher.account_of_payment}}</td>
+        <td style="display: none;">{{teacher.cnic_number}}</td>
+        <td style="display: none;">{{teacher.contact_nickname}}</td>
+        <td>
+            <a href="/view/{{teacher.id}}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+            <a href="/edit/{{teacher.id}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+            {% if not teacher.isSalaryPaid %}
+            <a href="/toggle_salary/{{teacher.id}}" class="btn btn-warning btn-sm"><i class="fas fa-inbox"></i> Mark Salary Paid</a>
+            {% else %}
+            <a href="/toggle_salary/{{teacher.id}}" class="btn btn-secondary btn-sm"><i class="fas fa-inbox"></i> Mark Salary Unpaid</a>
+            {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+      </tfoot>
+    </table>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'top.html' %}
+
+
+{% block title %}Other Options{% endblock %}
+
+{% block content %}
+
+<div class="container-sm">
+    <a href="#" id="reset" class="btn btn-danger m-2">Reset All Salary & Fee Status</a>
+    <a href="/options/excel" class="btn btn-success m-2">Convert All Tables To Excel</a>
+    <a href="/options/excel/un" class="btn btn-dark m-2">Convert Accrued Income/Expense To Excel</a>
+</div>
+
+
+<script>
+    document.getElementById("reset").addEventListener("click", function () {
+        if (confirm("All of the salary and fee status will be turned into unpaid/unreceived.")) {
+            if (confirm("You can't undo this.")) {
+                if (confirm("You sure? This is your last chance. Press OK to delete.")) {
+                    window.location.href = "/options/reset";
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

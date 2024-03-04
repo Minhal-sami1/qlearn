@@ -1,0 +1,140 @@
+{% extends 'top.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{sobj.query.count()}}</h3>
+                        <p>Total Students</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{tobj.query.count()}}</h3>
+                        <p>Total Teachers</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{cobj.query.count()}}</h3>
+                        <p>Total Classes</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+            <!-- <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                        <h3>{{revenue}}</h3>
+                        <p>Revenue (Total Fee)</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>{{expenses}}</h3>
+                        <p>Expenses (Total Salary)</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h3>{{received_fee}}</h3>
+                        <p>Received Fee</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-dark">
+                    <div class="inner">
+                        <h3>{{paid_salary}}</h3>
+                        <p>Paid Salary</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-light">
+                    <div class="inner">
+                        <h3>{{expected_gross_profit}}</h3>
+                        <p>Gross Profit (Revenue - Expenses)</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                        <h3>{{current_gross_profit}}</h3>
+                        <p>Current Gross Profit</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a class="small-box-footer">__</i></a>
+                </div>
+            </div> -->
+        </div>
+
+{% endblock %}

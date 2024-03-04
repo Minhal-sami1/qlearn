@@ -1,0 +1,43 @@
+{% extends 'top.html' %}
+
+
+{% block title %}Exchange Currency{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
+        <div class="form-group">
+            <label for="currencyFrom">Currency From</label>
+            <select class="form-control" id="currencyFrom" name="currencyFrom">
+                {% for k,v in currency.items() %}
+                <option value="{{k}}">{{v}}</option>
+                {% endfor %}
+            </select>
+
+            <label for="currencyTo">Currency To</label>
+
+            <select class="form-control" id="currencyTo" name="currencyTo">
+                {% for k,v in currency.items() %}
+                {% if k != "PKR" %}
+                <option value="{{k}}">{{v}}</option>
+                {% else %}
+                <option selected value="{{k}}">{{v}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <label for="amount">Amount</label>
+            <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+        </div>
+        <button type="submit" class="btn btn-dark">Convert</button>
+    </form>
+    <hr>
+    {% if exchanged %}
+    <div class="result m-3">
+        <h3>Result</h3>
+        <p id="result">{{cAmount}} {{currencyF}} = {{result}} {{currencyT}}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

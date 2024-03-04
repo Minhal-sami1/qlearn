@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {% block meta %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <div class="navbar" id="myNavbar">
+            <a>RegSystem</a>
+            <a href="/teachers">Teachers</a>
+            <a href="/students">Students</a>
+            <a href="/courses">Courses</a>
+            <a href="/logout" id="log">Logout</a>
+            <a href="javascript:void(0);" class="icon" onclick="toggleNavbar()">&#9776;</a>
+        </div>
+        <div class="heroOptions">
+            {% block heroOptions %}{% endblock %}
+        </div>
+        <h2>{% block title2 %}{% endblock %}</h2>
+        {% block content %}
+        {% endblock %}
+</body>
+</html>

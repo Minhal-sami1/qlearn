@@ -1,0 +1,46 @@
+{% extends 'top.html' %}
+
+{% block title %}Accounting{% endblock %}
+
+{% block content %}
+
+<div class="card-body">
+    <p class="m-2 text-muted">*All data is shown in rupees, unless stated otherwise.</p>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Projection</th>
+                <th>Current</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Revenue (PK)</td>
+                <td>{{pkr_total_revenue}}</td>
+                <td>{{pkr_total_revenue_received}}</td>
+            </tr>
+            <tr>
+                <td>Revenue (External)</td>
+                <td>{{non_pkr_total_revenue}}</td>
+                <td>{{non_pkr_total_revenue_received}}</td>
+            </tr>
+            <tr style="border-top: 3px solid #ccc;">
+                <td>Cost of Revenue</td>
+                <td>({{total_cost_of_revenue}})</td>
+                <td>({{total_cost_of_revenue_paid}})</td>
+            </tr>
+            <tr style="border-top: 3px solid #ccc;">
+                <td class="font-weight-bold">GROSS PROFIT</td>
+                <td>{{projected_gross_profit}}</td>
+                {% if current_gross_profit < 0 %}
+                <td class="text-danger font-weight-bold">({{current_gross_profit-(2*current_gross_profit)}})</td>
+                {% else %}
+                <td class="font-weight-bold">{{current_gross_profit}}</td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,231 @@
+{% extends 'top.html' %}
+
+
+{% block title %}
+Add {% if table_index == 0 %}Teacher{% elif table_index == 1 %}Student{% else %}Class{% endif %}
+{% endblock %}
+
+{% block location %}
+{% if table_index == 0 %}
+<li class="breadcrumb-item"><a href="/teachers">Teachers</a></li>
+{% elif table_index == 1 %}
+<li class="breadcrumb-item"><a href="/students">Students</a></li>
+{% else %}
+<li class="breadcrumb-item"><a href="/classes">Classes</a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-dark">
+          <div class="card-header">
+            <h3 class="card-title">{% if table_index == 0 %}Teacher{% elif table_index == 1 %}Student{% else %}Class{%
+              endif %} Details</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          {% if table_index == 2 %}
+          <form method="post" autocomplete="off">
+            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
+            <div class="card-body">
+              <div class="form-group">
+                <label for="name">Title*</label>
+                <input type="text" class="form-control" name="title" placeholder="Enter title" required>
+              </div>
+              <div class="form-group">
+
+                <label>Select Class Type*</label>
+                <select class="form-control select2 select2-danger" name="class-type"
+                  data-dropdown-css-class="select2-danger">
+                  {% for class in quran_courses_choices %}
+                  <option value="{{class}}">{{class}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+
+                <label>Select Teacher*</label>
+                <select class="form-control select2 select2-danger" name="teacher"
+                  data-dropdown-css-class="select2-danger">
+                  {% for teacher in teachers %}
+                  <option selected="selected" value="{{teacher.id}}">{{teacher.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Details*</label>
+                <textarea class="form-control" name="details" style="height:100;min-height: 100;max-height: 150px;"
+                  placeholder="Enter details" required></textarea>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-dark">Save Class</button>
+            </div>
+          </form>
+          {% elif table_index == 1 %}
+          <form method="post" autocomplete="off">
+            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
+            <div class="card-body">
+
+              <div class="form-group">
+                <label>Name*</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter name" required>
+              </div>
+              <div class="form-group">
+                <label>Contact Number*</label>
+                <input type="tel" class="form-control" name="contact" placeholder="Enter contact number" required>
+              </div>
+              <div class="form-group">
+                <label>Contact Nickname*</label>
+                <input type="text" class="form-control" name="contact-nickname" placeholder="Enter contact nickname"
+                  required>
+              </div>
+              <div class="form-group">
+                <label>Country*</label>
+                <select class="form-control select2 select2-danger" name="country" id="country"
+                  data-dropdown-css-class="select2-danger">
+                </select>
+              </div>
+              <div class="form-group">
+                <label>City*</label>
+                <input type="text" class="form-control" name="city" placeholder="Enter city name" required>
+              </div>
+              <div class="form-group">
+                <label>Address*</label>
+                <textarea class="form-control" name="address" style="height:100px;min-height: 100px;max-height: 150px;"
+                  placeholder="Enter address" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Join Date*</label>
+                <input type="date" class="form-control" name="date-joined" placeholder="Enter date joined" required>
+              </div>
+              <div class="form-group">
+                <label>Birth Date*</label>
+                <input type="date" class="form-control" name="date-born" placeholder="Enter birth date" required>
+              </div>
+              <div class="form-group">
+                <label>Class*</label>
+                <select class="form-control select2 select2-danger" name="class"
+                  data-dropdown-css-class="select2-danger">
+                  {% for class in classes %}
+                  <option selected="selected" value="{{class.id}}">{{class.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Platform*</label>
+                <select class="form-control select2 select2-danger" name="platform"
+                  data-dropdown-css-class="select2-danger">
+                  {% for platform in platforms %}
+                  <option value="{{platform}}">{{platform}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Learnable Language/s*</label>
+                <input class="form-control" name="languages" placeholder="Enter language/s they can learn in" required>
+              </div>
+              <div class="form-group">
+                <label>Fee*</label>
+                <input type="number" class="form-control" name="fee" placeholder="Enter fee" min="0" required>
+              </div>
+              <div class="form-group">
+                <label>Fee Currency*</label>
+                <select class="form-control select2 select2-danger" name="currency">
+                {% for k,v in currency.items() %}
+                <option value="{{k}}">{{v}}</option>
+                {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Payment Details*</label>
+                <textarea class="form-control" name="payment" style="height:100px;min-height: 100px;max-height: 150px;"
+                  placeholder="Enter payment details" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Timing Details*</label>
+                <textarea class="form-control" name="timing" style="height:100px;min-height: 100px;max-height: 150px;"
+                  placeholder="Enter timing details. e.g. 5:00 pm every thursday and friday" required></textarea>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-dark">Save Student</button>
+            </div>
+          </form>
+          <script src="/static/script.js"></script>
+          {% else %}
+          <form method="post" autocomplete="off">
+            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
+            <div class="card-body">
+              <div class="form-group">
+                <label>Name*</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter name" required>
+              </div>
+              <div class="form-group">
+                <label>Contact Nickname*</label>
+                <input type="text" class="form-control" name="contact-nickname" placeholder="Enter contact nickname"
+                  required>
+              </div>
+              <div class="form-group">
+                <label>Contact Number*</label>
+                <input type="tel" class="form-control" name="contact" placeholder="Enter contact number" required>
+              </div>
+              <div class="form-group">
+                <label>Country*</label>
+                <select class="form-control select2 select2-danger" name="country" id="country"
+                  data-dropdown-css-class="select2-danger">
+                </select>
+              </div>
+              <div class="form-group">
+                <label>City*</label>
+                <input type="text" class="form-control" name="city" placeholder="Enter city name" required>
+              </div>
+              <div class="form-group">
+                <label>Address*</label>
+                <textarea class="form-control" name="address" style="height:100px;min-height: 100px;max-height: 150px;"
+                  placeholder="Enter address" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Teachable Language/s*</label>
+                <input class="form-control" name="languages" placeholder="Enter language/s they can teach in" required>
+              </div>
+              <div class="form-group">
+                <label>Qualifications*</label>
+                <textarea class="form-control" name="qualifications"
+                  style="height:100px;min-height: 100px;max-height: 150px;" placeholder="Enter qualification"
+                  required></textarea>
+              </div>
+              <div class="form-group">
+                <label>CNIC*</label>
+                <input type="text" class="form-control" id="cnic" name="cnic" maxlength="15" placeholder="Enter cnic" required>
+              </div>
+              <div class="form-group">
+                <label>Join Date*</label>
+                <input type="date" class="form-control" name="date-joined" placeholder="Enter date joined" required>
+              </div>
+              <div class="form-group">
+                <label>Salary*</label>
+                <input type="number" class="form-control" name="salary" placeholder="Enter salary" min="0" required>
+              </div>
+              <div class="form-group">
+                <label>Payment Details*</label>
+                <textarea class="form-control" name="payment" style="height:100px;min-height: 100px;max-height: 150px;"
+                  placeholder="Enter payment details" required></textarea>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-dark">Save Teacher</button>
+            </div>
+          </form>
+
+          {% endif %}
+        </div>
+</section>
+<script src="/static/script.js"></script>
+{% endblock %}

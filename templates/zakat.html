@@ -1,0 +1,24 @@
+{% extends 'top.html' %}
+
+{% block title %}Zakat Calculator{% endblock %}
+
+{% block content %}
+<!-- form that takes a number -->
+<form class="container">
+    <h2 class="text-center" id="zakat">Zakat: 0</h2>
+    <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" class="form-control" id="amount" value="0" min="0" placeholder="Enter amount">
+    </div>
+</form>
+<script>
+    function calculateZakat() {
+        var amount = document.getElementById("amount").value;
+        var zakat = (amount * 0.025).toFixed(2);
+        // 2 Decimal places
+        document.getElementById("zakat").innerHTML = "Zakat: " + zakat;
+    }
+    document.getElementById("amount").addEventListener("change", calculateZakat);
+    document.getElementById("amount").addEventListener("input", calculateZakat);
+</script>
+{% endblock %}
