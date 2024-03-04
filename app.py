@@ -7,6 +7,7 @@ from flask_wtf import CSRFProtect
 import requests
 import pandas as pd
 from datetime import datetime
+import gunicorn
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///management.db'
