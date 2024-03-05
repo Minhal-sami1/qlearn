@@ -5,3 +5,4 @@ pandas
 Requests
 SQLAlchemy
 gunicorn
+openpyxl
